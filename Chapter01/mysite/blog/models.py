@@ -28,8 +28,8 @@ class Post(models.Model):
                               choices=STATUS_CHOICES, 
                               default='draft') 
     
-    objects = models.Manager() # The default manager. 
-    published = PublishedManager() # Our custom manager.
+    objects = models.Manager()  # The default manager.
+    published = PublishedManager()  # Our custom manager.
 
     class Meta: 
         ordering = ('-publish',) 
