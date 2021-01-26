@@ -5,9 +5,10 @@ from .models import Post
 
 
 def post_list(request):
-    object_list = Post.objects.all()
+    object_list = Post.published.all()
     paginator = Paginator(object_list, 3)  # 3 posts in each page
     page = request.GET.get('page')
+    print(page)
     try:
         posts = paginator.page(page)
     except PageNotAnInteger:
@@ -22,9 +23,14 @@ def post_list(request):
                    'posts': posts})
 
 
+# def post_list(request):
+#     print(request.GET.get('page'))
+#     posts = Post.objects.filter(status='published')
+#     return render(request, 'blog/post/list.html', {'posts': posts})
+
+
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post,
-                                   status='published',
                                    publish__year=year,
                                    publish__month=month,
                                    publish__day=day)
@@ -36,5 +42,7 @@ def post_detail(request, year, month, day, post):
 class PostListView(ListView):
     queryset = Post.objects.all()
     context_object_name = 'posts'
-    paginate_by = 3
+    paginate_by = 2
     template_name = 'blog/post/list.html'
+
+

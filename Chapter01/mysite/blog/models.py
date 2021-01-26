@@ -32,7 +32,7 @@ class Post(models.Model):
     published = PublishedManager()  # Our custom manager.
 
     class Meta: 
-        ordering = ('-publish',) 
+        ordering = ('publish',)
 
     def __str__(self): 
         return self.title
